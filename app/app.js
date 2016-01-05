@@ -1,9 +1,16 @@
 define(['common'], function(angularAMD) {
   'use strict';
 
-  var app = angular.module('app', ['ui.router', 'ngResource']);
+  var app = angular.module('app', ['ui.router', 'ngResource','satellizer']);
 
-  app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
+  app.config(['$stateProvider', '$urlRouterProvider','$authProvider', function($stateProvider, $urlRouterProvider,$authProvider) {
+
+
+    $authProvider.google({
+      clientId: '32377494280-5r5hhak4bdefb7l018k9vvp8ut95t7d8.apps.googleusercontent.com'
+    });
+
+
     var modulesFolder = 'modules/';
     var partialsFolder = '/partials/';
     var scriptsFolder = '/scripts/';

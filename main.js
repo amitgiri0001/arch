@@ -17,6 +17,7 @@
       'angular-ui-router': coreScriptFolder + 'angular-ui-router.min',
       //'ngload': coreScriptFolder + 'ngload.min',
       'angular-resource': coreScriptFolder + 'angular-resource.min',
+      'satellizer': coreScriptFolder + 'satellizer.min',
       'lodash': extScriptFolder + 'lodash.min',
       'routes': '../config/routes',
       'api': coreScriptFolder + 'api.min',
@@ -30,6 +31,7 @@
     shim: {
       'angular':['jquery'],
       'angular-resource': ['angular'],
+      'satellizer': ['angular'],
       'angular-ui-router': ['angular'],
       'angularAMD': ['angular'],
       'bootstrap':['jquery'],
