@@ -2,33 +2,33 @@
 <html>
 
 <head>
-  <base href="/app/" />
+  <base href="/arch/app/" />
   <meta charset="utf-8">
   <title>Angular arch</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width">
   <!-- css -->
-  <link rel="stylesheet" href="css/bootstrap.min.css"></link>
-  <link rel="stylesheet" href="css/bootstrap-override.css"></link>
+  <link rel="stylesheet" href="common/css/bootstrap.min.css"></link>
+  <link rel="stylesheet" href="common/css/bootstrap-override.css"></link>
 
   <!-- if js is disabled in brower, this will be shown -->
   <noscript>Your browser does not support JavaScript or is disabled!</noscript>
 
   <!-- only requireJs script should be here. As every thing else is getting loaded by requireJs -->
   <!-- as soon as the requireJs will be loaded, it will call main.js for requireJs configurations -->
-  <script data-main="../main.js" src="scripts/core/require.js"></script>
+  <script data-main="../main.js" src="common/scripts/core/require.js"></script>
 </head>
 
 <body>
   <!-- include-html is a custom directive for injecting html which will share the same current scope i.e not child of current scope -->
   <!-- header -->
-  <div include-html url="../header.html"></div>
+  <!-- <div include-html url="../header.html"></div> -->
 
   <!-- the view will be injected here by ui-router according to state -->
   <div ui-view></div>
 
   <!-- footer -->
-  <div include-html url="../footer.html"></div>
+  <!-- <div include-html url="../footer.html"></div> -->
 </body>
 
 </html>

@@ -1,8 +1,8 @@
 (function() {
   'use strict'
 
-  var coreScriptFolder = 'scripts/core/';
-  var extScriptFolder = 'scripts/ext/';
+  var coreScriptFolder = 'common/scripts/core/';
+  var extScriptFolder = 'common/scripts/ext/';
 
 // requireJs base configuration
   require.config({
@@ -17,25 +17,24 @@
       'angular-ui-router': coreScriptFolder + 'angular-ui-router.min',
       //'ngload': coreScriptFolder + 'ngload.min',
       'angular-resource': coreScriptFolder + 'angular-resource.min',
-      'satellizer': coreScriptFolder + 'satellizer.min',
       'lodash': extScriptFolder + 'lodash.min',
       'routes': '../config/routes',
+      'states': '../config/states',
       'api': coreScriptFolder + 'api.min',
       'app': 'app',
       'bootstrap': extScriptFolder + 'bootstrap.min',
       'jquery': extScriptFolder + 'jquery-2.1.4.min',
-      'appCtrl': 'modules/appCtrl'
+      'common': 'common'
     },
     // shim => dependency.
     // when any script loads, what dependencies has to be loaded before that will be decided by shim object.
     shim: {
       'angular':['jquery'],
       'angular-resource': ['angular'],
-      'satellizer': ['angular'],
       'angular-ui-router': ['angular'],
       'angularAMD': ['angular'],
       'bootstrap':['jquery'],
-      'appCtrl': ['angularAMD']
+      'states': ['angularAMD']
       //'ngload': ['angularAMD']
     },
     // after all configurations are done, what next file will be executed is under deps.

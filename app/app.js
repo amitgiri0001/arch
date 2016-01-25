@@ -1,59 +1,43 @@
-define(['common'], function(angularAMD) {
+define(['common', 'states'], function(angularAMD, states) {
   'use strict';
 
-  var app = angular.module('app', ['ui.router', 'ngResource','satellizer']);
+  var auth = angular.module('auth', ['ui.router', 'ngResource']);
+  auth.config(states);
 
-  app.config(['$stateProvider', '$urlRouterProvider','$authProvider', function($stateProvider, $urlRouterProvider,$authProvider) {
+  auth.run(['$rootScope', '$state', 'authSrv', '$urlRouter', function($rootScope, $state, authSrv, $urlRouter) {
+    $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
 
+      var stateObj = {
+        toState: toState,
+        toParams: toParams,
+        fromState: fromState,
+        fromParams: fromParams
+      };
 
-    $authProvider.google({
-      clientId: '32377494280-5r5hhak4bdefb7l018k9vvp8ut95t7d8.apps.googleusercontent.com'
-    });
-
-
-    var modulesFolder = 'modules/';
-    var partialsFolder = '/partials/';
-    var scriptsFolder = '/scripts/';
-
-    $stateProvider
-      // multiview example
-      .state('home', angularAMD.route({
-        url: '/home',
-        views: {
-          // default view / main view with parent controller
-          "": angularAMD.route({
-                templateUrl: modulesFolder + 'home' + partialsFolder + 'home.html',
-                controllerUrl: modulesFolder + 'home' + scriptsFolder + 'homeCtrl',
-                // need to add controller name in multi view
-                controller: 'homeCtrl'
-          }),
-          "partial1@home": {
-            template: "this is partial one"
-          },
-          "partial2@home": {
-            template: "this is partial two"
-          }
+      if (authSrv.isAuthenticated('state', stateObj)) {
+        // is authenticated
+      } else {
+        event.preventDefault();
+        if(toState.data.permmission.redirectUrl == 'previousState' && fromState.name){
+          $state.go(fromState.name);
         }
-      }))
-      // nested view example
-      .state('about', angularAMD.route({
-        url: '/about',
-        templateUrl: modulesFolder + 'about' + partialsFolder + 'about.html',
-        controllerUrl: modulesFolder + 'about' + scriptsFolder + 'aboutCtrl'
-      }))
-      .state('about.list', angularAMD.route({
-        url: '/list',
-        templateUrl: modulesFolder + 'about' + partialsFolder + 'about.list.html'
-      }));
+        else {
+          $state.go(toState.data.permmission.redirectUrl);
+        }
+      }
 
-    // Else
-    $urlRouterProvider
-      .otherwise('/home');
+      // if(localStorage.getItem('hello')){
+      //   event.preventDefault();
+      //   require(['locum/locumApp'],function () {
+      //   $state.go('/home');
+      //   });
+      //
+      // }
 
-
+      //authSrv.loginRedirect();
+    });
   }]);
 
 
-
-  return angularAMD.bootstrap(app);
+  return angularAMD.bootstrap(auth);
 });
