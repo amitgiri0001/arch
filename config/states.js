@@ -15,7 +15,7 @@ define(['angularAMD'], function(angularAMD) {
     var loginState = 'auth', previousState = 'previousState';
 
     $urlRouterProvider
-      .otherwise('/home');
+      .otherwise('/' + loginState);
 
     $stateProvider
     // multiview example
